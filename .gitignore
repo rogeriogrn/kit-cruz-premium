@@ -1,0 +1,19 @@
+# Agent config (dev only)
+.agent/
+agents/
+
+# System
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node
+node_modules/
+.vercel/
+
+# IDE
+.vscode/
+.idea/
+
+# Gemini
+.gemini/
