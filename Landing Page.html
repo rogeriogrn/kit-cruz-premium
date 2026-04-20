@@ -229,47 +229,51 @@
   .h1{
     font-family:var(--f-display);
     font-weight:700;
-    font-size:clamp(40px,8.5vw,100px);
-    line-height:.92;
+    font-size:clamp(44px,8.5vw,90px);
+    line-height:1.05;
     letter-spacing:-.03em;
-    margin:0 0 22px;
+    margin:0 0 20px;
     font-variation-settings:"SOFT" 40,"WONK" 0,"opsz" 144;
   }
   .h1 .line{display:block}
   .h1 em{font-style:italic;font-variation-settings:"SOFT" 60,"WONK" 1,"opsz" 144;color:var(--silver)}
   .sub{
-    font-size:17px;color:#d8d8d2;max-width:44ch;
-    margin:0 0 28px;
+    font-size:16.5px;color:#d8d8d2;max-width:44ch;
+    margin:0 0 28px;line-height:1.6;
   }
-  @media(min-width:980px){.sub{font-size:19px}}
+  @media(min-width:980px){.sub{font-size:18px}}
 
   /* Price block */
   .price-block{
-    display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;
-    padding:22px 0 26px;
-    border-top:1px solid #222;border-bottom:1px solid #222;
-    margin:0 0 26px;
+    display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+    padding:24px 28px;
+    background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0));
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:var(--r-lg);
+    margin:0 0 28px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.2);
   }
   .price-now{
     font-family:var(--f-display);font-weight:800;line-height:.88;
-    font-size:clamp(72px,16vw,168px);letter-spacing:-.04em;
-    color:var(--paper);
+    font-size:clamp(64px,14vw,110px);letter-spacing:-.04em;
+    color:var(--gold);
     display:flex;align-items:flex-start;
   }
-  .price-now .cents{font-size:.28em;margin-top:.3em;margin-left:.05em;color:var(--silver)}
-  .price-now .cifra{font-size:.32em;margin-top:.35em;margin-right:.02em;color:var(--silver);font-weight:500}
-  .price-side{display:flex;flex-direction:column;gap:6px;padding-bottom:10px}
-  .price-old{font-family:var(--f-display);font-size:28px;color:var(--silver-dim)}
+  .price-now .cents{font-size:.28em;margin-top:.2em;margin-left:.05em;color:var(--gold-dim)}
+  .price-now .cifra{font-size:.32em;margin-top:.25em;margin-right:.04em;color:var(--gold-dim);font-weight:500}
+  .price-side{display:flex;flex-direction:column;gap:8px;padding-bottom:0}
+  .price-old{font-family:var(--f-display);font-size:22px;color:var(--silver-dim)}
   .price-off{
-    font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;
-    background:var(--alert);color:#fff;padding:6px 10px;border-radius:3px;
+    font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;
+    background:rgba(201,53,69,0.15);color:var(--alert);border:1px solid rgba(201,53,69,0.3);
+    padding:6px 10px;border-radius:4px;
     display:inline-block;font-weight:700;align-self:flex-start;
   }
   .price-cod{
-    font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;color:var(--gold);
-    text-transform:uppercase;
+    font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;color:var(--paper);
+    text-transform:uppercase;display:flex;align-items:center;gap:6px;
   }
-
+  .price-cod .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:pulse 1.4s infinite}
   .cta-row{display:flex;flex-direction:column;gap:12px;margin-bottom:22px}
   @media(min-width:540px){.cta-row{flex-direction:row;align-items:center}}
   .btn-gold{
@@ -726,13 +730,12 @@
           <span class="line" data-hero="1">Não enegrece.</span>
           <span class="line" data-hero="2">Não mancha.</span>
           <span class="line" data-hero="3">Não irrita.</span>
-          <span class="line" data-hero="4"><span class="mark dark"><span class="t">R$ 99</span></span> <em>na entrega.</em></span>
         </h1>
-        <p class="sub" data-hero="5" style="font-size: 19px; font-weight: 500; color: var(--paper); margin-top: 16px; margin-bottom: 12px;">
-          Kit completo em aço inox eletropolido com cordão, pulseira e pingente de cruz cravejado.
+        <p class="sub" data-hero="4" style="font-size: 20.5px; font-weight: 500; color: var(--gold); margin-top: 0; margin-bottom: 8px; font-family: var(--f-display); font-style: italic; letter-spacing: 0.01em;">
+          Kit completo aço inox premium.
         </p>
-        <p class="sub" data-hero="5">
-          Hipoalergênico, resistente à água e ao suor. Você recebe em casa, confere, e só paga depois. Sem cartão, sem Pix antecipado. Risco zero.
+        <p class="sub" data-hero="5" style="font-size: 16px;">
+          Cordão, pulseira e pingente cravejado. Hipoalergênico, resistente à água e ao suor. Receba em casa, confira e <strong>só pague depois</strong>. Zero risco.
         </p>
 
         <div class="price-block" data-hero="6">
@@ -742,7 +745,7 @@
           <div class="price-side">
             <span class="price-old"><span class="strike">R$ 297</span></span>
             <span class="price-off">66% OFF · ECONOMIZE R$ 198</span>
-            <span class="price-cod">↳ Pagamento na entrega</span>
+            <span class="price-cod"><span class="dot"></span> PAGAMENTO NA ENTREGA</span>
           </div>
         </div>
 
@@ -755,7 +758,7 @@
         </div>
 
         <div class="trust-row" data-hero="8">
-          <span><span class="tick">✓</span> Pagamento na entrega</span>
+          <span><span class="tick">✓</span> Pague ao entregador</span>
           <span><span class="tick">✓</span> Frete grátis</span>
           <span><span class="tick">✓</span> Garantia de 7 dias</span>
         </div>
