@@ -620,16 +620,20 @@
 
   /* ---------- CTA FINAL ---------- */
   .cta-final{
-    background:var(--ink);color:var(--paper);
+    background:url('uploads/background.png') center/cover no-repeat;
+    color:var(--paper);
     padding:80px 0 100px;
     position:relative;overflow:hidden;
     text-align:center;
   }
   .cta-final::before{
     content:"";position:absolute;inset:0;
-    background:radial-gradient(ellipse 70% 60% at 50% 80%,rgba(201,169,110,.08),transparent);
+    background:radial-gradient(ellipse 70% 60% at 50% 80%,rgba(201,169,110,.12),transparent), rgba(0,0,0,0.55);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
     pointer-events:none;
   }
+  .cta-final .wrap{position:relative;z-index:2}
   .cta-final .alert-pill{
     display:inline-flex;align-items:center;gap:8px;
     font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
