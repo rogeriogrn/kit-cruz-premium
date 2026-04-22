@@ -12,11 +12,37 @@ Arquivo único autocontido com HTML + CSS + JS inline.
 **Responsabilidades:**
 - Layout e estrutura semântica de todas as seções
 - Design system completo (tokens CSS, tipografia, cores)
-- Lógica client-side (geolocation, accordion, scroll reveal, sticky CTA)
+- Lógica client-side (geolocation, accordion, scroll reveal, sticky CTA, widget de CEP)
 
 **Dependências externas (CDN):**
 - Google Fonts: `Fraunces`, `Space Grotesk`, `JetBrains Mono`
 - API de geolocalização: `ipapi.co/json/` + `ip-api.com/json/`
+- API de entrega (via proxy próprio): `api/delivery.js` → `app.logzz.com.br`
+
+---
+
+## Backend (Vercel Serverless)
+
+### `api/delivery.js`
+Função serverless Node.js (CommonJS) executada na edge da Vercel.
+
+**Endpoint público:** `GET /api/delivery?cep=XXXXXXXX`
+
+**Responsabilidades:**
+- Normaliza o CEP (só dígitos, 8 caracteres)
+- Chama `GET https://app.logzz.com.br/api/delivery-day/options/zip-code/{cep}` com timeout de 4s
+- Traduz a resposta em um payload simplificado: `{ ok, reason, zip, city, state, dates[] }`
+- Sempre retorna HTTP 200 com `reason` → o frontend nunca precisa tratar 5xx
+- Cache em borda: `s-maxage=180, stale-while-revalidate=600`
+
+**Valores possíveis de `reason`:**
+| Valor | Significado |
+|-------|-------------|
+| `available` | API retornou `success: true` e `dates_available[]` não vazio |
+| `unavailable` | API retornou 422 ou erro "Área não disponível" |
+| `not_found` | API retornou erro "CEP não encontrado" |
+| `invalid_cep` | CEP informado não tem 8 dígitos |
+| `fallback` | Falha de rede, timeout, ou retorno inesperado (segue no modo tradicional) |
 
 ---
 
@@ -65,6 +91,10 @@ Arquivo único autocontido com HTML + CSS + JS inline.
 | `#footbot-city` | Footer — barra inferior | Geolocalização |
 | `#stickyCta` | CTA móvel fixo | Scroll listener |
 | `#comprar` | Seção CTA final (âncora) | Target de scroll |
+| `#cepWidget` | Seção CTA final — widget de CEP | Script `#cep-widget-script` |
+| `#cepInput` | Campo de CEP (estado input) | Máscara 00000-000 |
+| `#cepBtn` | Botão "VERIFICAR" (estado input) | Habilita com 8 dígitos |
+| `#cepHelp` | Mensagem abaixo do input | Feedback de estado/erro |
 
 ### Classes CSS principais
 
@@ -113,12 +143,19 @@ Arquivo único autocontido com HTML + CSS + JS inline.
 </script>
 ```
 
-### Para definir link do checkout
-Buscar `#link-do-checkout` no HTML e substituir pela URL real do checkout:
-```html
-<!-- Localização: seção .cta-final -->
-<a href="https://seu-checkout.com/kit-cruz" class="btn-neon">
+### Para definir links dos checkouts (widget de CEP)
+Editar `Landing Page.html`, bloco `<script id="cep-widget-script">`, e substituir:
+
+```js
+const COINZZ_CHECKOUT_URL      = 'COINZZ_CHECKOUT_URL';       // URL real do Coinzz
+const TRADITIONAL_CHECKOUT_URL = 'TRADITIONAL_CHECKOUT_URL';  // URL real do checkout tradicional
 ```
+
+**Query params enviados automaticamente:**
+- Coinzz: `cep`, `type_code` (da data escolhida), `delivery_date` (YYYY-MM-DD)
+- Tradicional: `cep`
+
+Se for preciso mudar os nomes dos params para combinar com o que o checkout aceita, editar `buildCoinzzUrl()` e `buildTraditionalUrl()` no mesmo script.
 
 ---
 
@@ -141,6 +178,20 @@ Visitante acessa a página
 │   ├── 70% do hero → sticky CTA aparece
 │   └── Seção #comprar → sticky CTA desaparece
 │
-└── [4] Clica no CTA:
-    └── Redireciona para checkout externo (#link-do-checkout)
+└── [4] Clica em qualquer CTA da página:
+    └── Scroll suave até a seção #comprar (CTA final)
+        │
+        └── [5] Digita o CEP no widget:
+            ├── /api/delivery?cep=... (serverless → Logzz)
+            │
+            ├── reason = "available"
+            │   └── Renderiza lista de datas → clica FINALIZAR PEDIDO
+            │       └── Redireciona para Coinzz com cep, type_code, delivery_date
+            │
+            ├── reason = "unavailable" | "fallback"
+            │   └── Renderiza mensagem + botão ENVIO TRADICIONAL
+            │       └── Redireciona para checkout tradicional com cep
+            │
+            └── reason = "not_found" | "invalid_cep"
+                └── Volta ao input com mensagem de erro
 ```

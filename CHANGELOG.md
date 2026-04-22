@@ -5,6 +5,40 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
 ---
 
+## [2.1.0] — 2026-04-22
+
+### ✨ Verificação de Entrega por CEP + Bifurcação de Checkout
+
+**Motivação:** Permitir que o cliente verifique disponibilidade de entrega agendada (Logzz) antes de ir para o checkout, e, quando a área não for atendida, redirecionar automaticamente para o fluxo de venda tradicional (pagamento antecipado + Correios), em vez de perder a venda.
+
+### Added — Serverless
+- `api/delivery.js` — Vercel Serverless Function. Proxy HTTP da API pública do Logzz (`/api/delivery-day/options/zip-code/{cep}`), com:
+  - Timeout de 4s (evita página travada)
+  - Cache de borda (`s-maxage=180, stale-while-revalidate=600`)
+  - Normalização da resposta: `{ ok, reason, zip, city, state, dates[] }`
+  - Razões possíveis: `available`, `unavailable`, `not_found`, `invalid_cep`, `fallback`
+
+### Added — CTA Final (seção `#comprar`)
+- Widget de CEP (`#cepWidget`) com 4 estados:
+  1. **Input** — campo de CEP com máscara `00000-000` + botão desabilitado até 8 dígitos
+  2. **Loading** — spinner enquanto consulta a API
+  3. **Disponível** — lista de datas (data/tipo/preço), seleção clicável, botão `FINALIZAR PEDIDO` → Coinzz
+  4. **Indisponível** — mensagem positiva + botão `COMPRAR COM ENVIO TRADICIONAL` → checkout tradicional
+- Fallback gracioso: se a API do Logzz falhar/demorar, o cliente é redirecionado automaticamente para o fluxo tradicional (não trava venda).
+- Placeholders de URL: `COINZZ_CHECKOUT_URL` e `TRADITIONAL_CHECKOUT_URL` (substituir no script antes de publicar).
+
+### Changed — `Landing Page.html`
+- Removido o botão direto `<a href="#link-do-checkout">` da seção `.cta-final`.
+- Substituído por `<div id="cepWidget">` pré-renderizado com o estado inicial (preserva animação `data-reveal="up"`).
+- Adicionado bloco CSS de `.cep-widget`, `.cep-input`, `.cep-date`, `.cep-alt`, `.cep-loading`, `.cep-final-btn` e `.cep-change`.
+- Adicionado `<script id="cep-widget-script">` (rodapé) com lógica de estado, máscara, consulta, e construção de URL com query params (`cep`, `type_code`, `delivery_date`).
+
+### Preservado
+- Âncora `#comprar` continua a mesma — todos os CTAs da página (hero, kit, bandas, sticky mobile) seguem funcionando.
+- Geolocalização, FAQ accordion, scroll reveal, sticky CTA: intocados.
+
+---
+
 ## [2.0.0] — 2026-04-20
 
 ### 🔄 Rebranding Completo: Prata 925 → Aço Inox Eletropolido
