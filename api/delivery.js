@@ -41,10 +41,16 @@ module.exports = async (req, res) => {
       json = null;
     }
 
-    const payload = json && json.data && json.data.response ? json.data.response : null;
+    // Normaliza a resposta (a Logzz atualmente retorna um array de objetos)
+    const root = Array.isArray(json) && json.length > 0 ? json[0] : (json || {});
+
+    // Busca o payload no formato novo ou antigo
+    const payload = root.response || (root.data && root.data.response) || null;
     const dates = payload && Array.isArray(payload.dates_available) ? payload.dates_available : [];
 
-    if (response.ok && json && json.success === true && dates.length > 0) {
+    const isSuccess = root.type === "success" || root.success === true;
+
+    if (response.ok && isSuccess && dates.length > 0) {
       return res.status(200).json({
         ok: true,
         reason: "available",
@@ -62,7 +68,10 @@ module.exports = async (req, res) => {
     }
 
     // Identifica o motivo do erro pelos textos retornados pela API
-    const errors = Array.isArray(json && json.errors) ? json.errors : [];
+    const errors = Array.isArray(root.errors) ? root.errors : [];
+    if (typeof root.msg === 'string') errors.push(root.msg);
+    if (typeof root.message === 'string') errors.push(root.message);
+    
     const joined = errors.join(" | ").toLowerCase();
     const notFound = /n[aã]o encontrado/.test(joined);
     const unavailable = /n[aã]o dispon[ií]vel|bloqueado/.test(joined);
