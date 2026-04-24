@@ -1696,7 +1696,7 @@
     state.zip = zip;
     renderLoading();
     try {
-      const r = await fetch('/api/delivery?cep=' + encodeURIComponent(zip), { headers: { Accept: 'application/json' } });
+      const r = await fetch('https://kit-cruz-premium.vercel.app/api/delivery?cep=' + encodeURIComponent(zip), { headers: { Accept: 'application/json' } });
       const d = await r.json();
 
       if(d.ok && d.reason === 'available'){

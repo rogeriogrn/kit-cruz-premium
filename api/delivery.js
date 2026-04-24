@@ -8,6 +8,7 @@
 
 module.exports = async (req, res) => {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   // Cache curto em borda: mesma região costuma repetir consultas próximas
   res.setHeader("Cache-Control", "s-maxage=180, stale-while-revalidate=600");
 
