@@ -1701,10 +1701,8 @@
 
       if(d.ok && d.reason === 'available'){
         renderAvailable(d);
-      } else if(d.reason === 'not_found' || d.reason === 'invalid_cep'){
-        renderInput(d.message || 'CEP não encontrado. Confira os números.', 'error');
       } else {
-        // unavailable | fallback → fluxo tradicional
+        // unavailable | not_found | fallback → fluxo tradicional
         renderUnavailable(d);
       }
     } catch(err){
