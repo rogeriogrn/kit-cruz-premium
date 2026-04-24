@@ -14,17 +14,19 @@
   /* ---------- TOKENS ---------- */
   :root{
     --ink:#0a0a0a;
+    --ink-warm:#1A1612;
     --ink-2:#141414;
     --ink-3:#1c1c1c;
-    --paper:#f5f4ef;
-    --paper-2:#ecebe4;
+    --paper:#F4EFE6;
+    --paper-2:#EAE4D9;
     --silver:#c5c7ca;
     --silver-dim:#8a8c8f;
-    --gold:#B8953F;
-    --gold-dim:#9A7A2E;
+    --gold:#D4A744;
+    --gold-dim:#9C7A2E;
     --gold-light:#D4AF56;
-    --alert:#c93545;
-    --velvet:#8a1220;
+    --alert:#6B1320;
+    --alert-bright:#8a2232;
+    --velvet:#4A0E1A;
 
     --f-display:"Fraunces", "Times New Roman", serif;
     --f-body:"Space Grotesk", system-ui, sans-serif;
@@ -173,6 +175,7 @@
     font-family:var(--f-mono);
     font-size:11px;letter-spacing:.08em;text-transform:uppercase;
     position:sticky;top:0;z-index:50;
+    border-bottom:1px solid rgba(255,255,255,.08);
   }
   .topbar-inner{
     display:flex;align-items:center;justify-content:center;gap:18px;
@@ -189,10 +192,15 @@
     padding:18px 0;
   }
   .brand{
-    font-family:var(--f-display);font-weight:900;font-size:22px;
-    letter-spacing:-.02em;line-height:1;
+    display:inline-block;line-height:0;
   }
-  .brand .sup{font-family:var(--f-mono);font-size:10px;vertical-align:top;color:var(--silver);margin-left:6px;letter-spacing:.1em}
+  .brand img{
+    height:120px;width:auto;display:block;
+    filter:brightness(1.1);
+    transition:opacity .3s var(--bz);
+  }
+  .brand img:hover{opacity:.85}
+  .foot .brand img{height:60px}
   .nav-cta{
     display:inline-flex;align-items:center;gap:8px;
     background:var(--gold);color:var(--ink);
@@ -265,7 +273,7 @@
   .price-old{font-family:var(--f-display);font-size:22px;color:var(--silver-dim)}
   .price-off{
     font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;
-    background:rgba(201,53,69,0.15);color:var(--alert);border:1px solid rgba(201,53,69,0.3);
+    background:rgba(107,19,32,0.2);color:#d4667a;border:1px solid rgba(107,19,32,0.4);
     padding:6px 10px;border-radius:4px;
     display:inline-block;font-weight:700;align-self:flex-start;
   }
@@ -353,10 +361,10 @@
 
   /* ---------- COD BAND ---------- */
   .cod-band{
-    background:var(--ink);
+    background:var(--ink-warm);
     padding:50px 0 60px;
-    border-top:1px solid #1f1f1f;
-    border-bottom:1px solid #1f1f1f;
+    border-top:1px solid #2a2520;
+    border-bottom:1px solid #2a2520;
   }
   .cod-headline{
     font-family:var(--f-display);font-weight:700;
@@ -377,7 +385,7 @@
   .step{
     padding:22px;border:1px solid #1f1f1f;border-radius:var(--r-md);
     display:flex;gap:16px;align-items:flex-start;
-    background:linear-gradient(180deg,#121212, #0d0d0d);
+    background:linear-gradient(180deg,#1a1714, #121010);
   }
   .step .n{
     font-family:var(--f-display);font-weight:900;font-size:42px;line-height:.8;color:var(--gold);
@@ -385,7 +393,7 @@
     flex:0 0 auto;min-width:44px;
   }
   .step h4{font-family:var(--f-display);font-weight:700;font-size:20px;margin:0 0 4px;letter-spacing:-.01em}
-  .step p{margin:0;font-size:13.5px;color:#c8c8c2;line-height:1.5}
+  .step p{margin:0;font-size:14px;color:#d4d4ce;line-height:1.5}
   .cod-cta-wrap{text-align:center;margin-top:36px}
 
   /* ---------- KIT / EDITORIAL ---------- */
@@ -465,7 +473,7 @@
 
   /* ---------- WHY (4 benefits) ---------- */
   .why{
-    background:var(--ink);color:var(--paper);
+    background:var(--ink-warm);color:var(--paper);
     padding:80px 0 90px;
   }
   .why .section-num{color:var(--silver)}
@@ -478,8 +486,8 @@
   @media(min-width:700px){.benefits{grid-template-columns:repeat(2,1fr);gap:18px}}
   @media(min-width:1060px){.benefits{grid-template-columns:repeat(4,1fr)}}
   .ben{
-    background:var(--ink-2);
-    border:1px solid #242424;
+    background:rgba(20,18,14,.9);
+    border:1px solid #2a2520;
     border-radius:var(--r-lg);
     padding:26px 22px 24px;
     position:relative;overflow:hidden;
@@ -501,7 +509,7 @@
     margin:0 0 12px;
   }
   .ben .big em{font-style:italic;font-variation-settings:"SOFT" 60,"WONK" 1;color:var(--silver)}
-  .ben p{font-size:14px;color:#c8c8c2;margin:0;line-height:1.5}
+  .ben p{font-size:14px;color:#d4d4ce;margin:0;line-height:1.5}
 
   /* ---------- REVIEWS ---------- */
   .reviews{
@@ -565,7 +573,7 @@
   .card .verified::before{content:"";width:6px;height:6px;border-radius:50%;background:#2a7a2a}
 
   /* ---------- GALLERY ---------- */
-  .gallery{background:var(--ink);color:var(--paper);padding:80px 0 90px}
+  .gallery{background:var(--ink-warm);color:var(--paper);padding:80px 0 90px}
   .gallery .section-num{color:var(--silver)}
   .gallery .section-num .bar{background:var(--silver)}
   .gallery .h2 em{color:var(--silver)}
@@ -621,7 +629,7 @@
 
   /* ---------- CTA FINAL ---------- */
   .cta-final{
-    background:url('uploads/background.png') center/cover no-repeat;
+    background:url('assets/bg-cta.png') center/cover no-repeat;
     color:var(--paper);
     padding:80px 0 100px;
     position:relative;overflow:hidden;
@@ -807,14 +815,14 @@
 <div class="topbar">
   <div class="topbar-inner">
     <span class="dot"></span>
-    <span>ÚLTIMAS UNIDADES <span class="hide-s">EM <span id="topbar-city">SUA CIDADE</span></span></span>
+    <span>RESTAM POUCOS KITS <span class="hide-s">PARA <span id="topbar-city">SUA REGIÃO</span></span></span>
     <span class="hide-s">·</span>
     <span class="hide-s">FRETE GRÁTIS · PAGUE SÓ NA ENTREGA</span>
   </div>
 </div>
 
 <header class="wrap nav">
-  <div class="brand">Kit Cruz<span class="sup">PREMIUM</span></div>
+  <div class="brand"><img src="assets/logo.png" alt="Kit Cruz Premium" /></div>
   <a href="#comprar" class="nav-cta">Pedir por R$ 99 <span aria-hidden>→</span></a>
 </header>
 
@@ -865,7 +873,7 @@
 
       <div class="hero-media" data-hero="9">
         <span class="tag"><span class="dot"></span>PAGUE SÓ QUANDO CHEGAR</span>
-        <img src="assets/Kit completo.png" alt="Kit completo em aço inox eletropolido" id="heroImg" />
+        <img src="assets/hero-kit-completo.png" alt="Kit completo em aço inox eletropolido" id="heroImg" />
         <span class="corner">AÇO INOX PREMIUM</span>
         <span class="frame"></span>
       </div>
@@ -937,7 +945,7 @@
       <article class="piece">
         <div class="piece-img">
           <span class="piece-num">01</span>
-          <img src="assets/Cordão em aço inox eletropolido.png" alt="Cordão em aço inox eletropolido" />
+          <img src="assets/peca-01-cordao.png" alt="Cordão em aço inox eletropolido" />
         </div>
         <div class="piece-meta">
           <span class="piece-tag">Peça 01 · CORDÃO</span>
@@ -950,7 +958,7 @@
       <article class="piece">
         <div class="piece-img">
           <span class="piece-num">02</span>
-          <img src="assets/Pingente cruz cravejada.png" alt="Pingente cruz cravejado em aço inox" />
+          <img src="assets/peca-02-pingente.png" alt="Pingente cruz cravejado em aço inox" />
         </div>
         <div class="piece-meta">
           <span class="piece-tag">Peça 02 · PINGENTE</span>
@@ -963,7 +971,7 @@
       <article class="piece">
         <div class="piece-img">
           <span class="piece-num">03</span>
-          <img src="assets/Pulseira em aço inox.png" alt="Pulseira em aço inox eletropolido" />
+          <img src="assets/peca-03-pulseira.png" alt="Pulseira em aço inox eletropolido" />
         </div>
         <div class="piece-meta">
           <span class="piece-tag">Peça 03 · PULSEIRA</span>
@@ -1062,12 +1070,12 @@
     <div class="rev-grid" data-reveal="stagger">
       <article class="card">
         <div class="card-photo">
-          <img src="uploads/depoimento1.png" alt="Diego usando o Kit Cruz Premium" />
+          <img src="assets/review-01.png" alt="Diego usando o Kit Cruz Premium" />
           <span class="card-badge">Compra verificada</span>
         </div>
         <div class="card-body">
           <div class="stars-sm">★★★★★</div>
-          <blockquote>"Já faz 4 meses que uso direto — tomo banho, treino, vou pra praia com ele. Continua brilhando igual ao primeiro dia. Paguei R$ 99 achando que ia ser vagabundo, <em>me enganei feio.</em>"</blockquote>
+          <blockquote><strong style="font-size:20px;display:block;margin-bottom:6px">"4 meses e continua brilhando igual."</strong> Tomo banho, treino, vou pra praia com ele. Paguei R$ 99 achando que ia ser vagabundo, <em>me enganei feio.</em></blockquote>
           <div class="who">
             <div class="who-meta">
               <span class="n">Diego M.</span>
@@ -1080,12 +1088,12 @@
 
       <article class="card">
         <div class="card-photo">
-          <img src="uploads/depoimento2.png" alt="Rafael usando o Kit Cruz Premium" />
+          <img src="assets/review-02.png" alt="Rafael usando o Kit Cruz Premium" />
           <span class="card-badge">Compra verificada</span>
         </div>
         <div class="card-body">
           <div class="stars-sm">★★★★★</div>
-          <blockquote>"Tenho pele sensível e já desisti de várias correntes porque me davam alergia. Essa de aço inox <em>não deu nenhum problema.</em> Acabamento ótimo, uso há 3 meses sem tirar."</blockquote>
+          <blockquote><strong style="font-size:20px;display:block;margin-bottom:6px">"Pele sensível e zero alergia."</strong> Já desisti de várias correntes porque me davam alergia. Essa de aço inox <em>não deu nenhum problema.</em> Acabamento ótimo, uso há 3 meses sem tirar.</blockquote>
           <div class="who">
             <div class="who-meta">
               <span class="n">Rafael C.</span>
@@ -1098,12 +1106,12 @@
 
       <article class="card">
         <div class="card-photo">
-          <img src="uploads/depoimento3.png" alt="Mônica usando o Kit Cruz Premium" />
+          <img src="assets/review-03.png" alt="Mônica usando o Kit Cruz Premium" />
           <span class="card-badge">Compra verificada</span>
         </div>
         <div class="card-body">
           <div class="stars-sm">★★★★★</div>
-          <blockquote>"Comprei pro aniversário do meu filho de 18 anos. Ele ama e eu adorei poder pagar só quando chegou — <em>sem medo de ser enganada.</em> E o melhor: não escurece nem com o suor dele de academia."</blockquote>
+          <blockquote><strong style="font-size:20px;display:block;margin-bottom:6px">"Paguei só quando chegou — sem medo."</strong> Comprei pro aniversário do meu filho de 18 anos. Ele ama e o melhor: <em>não escurece nem com o suor dele de academia.</em></blockquote>
           <div class="who">
             <div class="who-meta">
               <span class="n">Mônica F.</span>
@@ -1129,9 +1137,9 @@
     </div>
 
     <div class="gal-grid" data-reveal="stagger">
-      <div class="gal g1"><img src="uploads/zoomupsclae corrente.png" alt="Macro do cordão" /><span class="cap">01 · MACRO CORDÃO</span></div>
-      <div class="gal g2"><img src="uploads/zoomscalepingente.png" alt="Macro da cruz" /><span class="cap">02 · MACRO CRUZ</span></div>
-      <div class="gal g3"><img src="uploads/macropulseira.png" alt="Macro da pulseira" /><span class="cap">03 · MACRO PULSEIRA</span></div>
+      <div class="gal g1"><img src="assets/macro-cordao.png" alt="Macro do cordão" /><span class="cap">01 · MACRO CORDÃO</span></div>
+      <div class="gal g2"><img src="assets/macro-pingente.png" alt="Macro da cruz" /><span class="cap">02 · MACRO CRUZ</span></div>
+      <div class="gal g3"><img src="assets/macro-pulseira.png" alt="Macro da pulseira" /><span class="cap">03 · MACRO PULSEIRA</span></div>
     </div>
   </div>
 </section>
@@ -1154,7 +1162,7 @@
           <span class="plus">+</span>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
-          <b>Simples:</b> você clica no botão, preenche seus dados no checkout seguro, e pronto — seu pedido foi feito. Nosso entregador leva a caixa até o endereço que você informou, você confere tudo na hora, e só então paga. Aceitamos <b>dinheiro, PIX e cartão</b> de débito ou crédito direto com ele. Sem dados bancários no site, sem risco nenhum.
+          <b>Simples:</b> você clica no botão, preenche seus dados no checkout seguro, e pronto — seu pedido foi feito. Nosso entregador leva a caixa até o endereço que você informou, você confere tudo na hora, e só então paga. Aceitamos <b style="color:var(--gold-dim)">dinheiro</b>, <b style="color:var(--gold-dim)">PIX</b> e <b style="color:var(--gold-dim)">cartão</b> de débito ou crédito direto com ele. <b>Sem dados bancários no site</b>, <b style="color:var(--gold-dim)">sem risco</b> nenhum.
         </div></div>
       </div>
 
@@ -1164,7 +1172,7 @@
           <span class="plus">+</span>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
-          <b>Não, e isso é bom.</b> A joia é 100% em aço inox premium, sendo o <b>único metal idêntico à prata</b> no visual. Enquanto a prata comum escurece com suor e dá trabalho para limpar, a nossa joia <b>não marea, não desbota, não descasca e não perde a cor</b>. É sem banho e sem verniz, garantindo luxo acessível para a vida toda.
+          <b>Não, e isso é bom.</b> A joia é 100% em <b style="color:var(--gold-dim)">aço inox premium</b>, sendo o <b>único metal idêntico à prata</b> no visual. Enquanto a prata comum escurece com suor e dá trabalho para limpar, a nossa joia <b style="color:var(--gold-dim)">não marea, não desbota, não descasca e não perde a cor</b>. É <b>sem banho e sem verniz</b>, garantindo luxo acessível para a vida toda.
         </div></div>
       </div>
 
@@ -1174,7 +1182,7 @@
           <span class="plus">+</span>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
-          <b>A entrega é feita em até 3 dias úteis</b> nas cidades atendidas (São Paulo, Rio de Janeiro, Belo Horizonte e principais cidades de Santa Catarina). Assim que seu pedido for confirmado, você recebe uma mensagem com o prazo exato pro seu CEP.
+          <b>A entrega é feita em até <span style="color:var(--gold-dim)">3 dias úteis</span></b> nas cidades atendidas (São Paulo, Rio de Janeiro, Belo Horizonte e principais cidades de Santa Catarina). Assim que seu pedido for confirmado, você recebe uma mensagem com o <b>prazo exato</b> pro seu CEP.
         </div></div>
       </div>
 
@@ -1184,7 +1192,7 @@
           <span class="plus">+</span>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
-          <b>Pode tudo.</b> Não possui contraindicações! Pode usar na praia e piscina à vontade. <b>Não enferruja, não marea e não descasca.</b> Basta realizar a limpeza básica (água e sabão) se a peça sujar com o suor/ácido úrico, e o brilho volta imediatamente. Feito pra uso diário!
+          <b>Pode tudo.</b> <b style="color:var(--gold-dim)">Não possui contraindicações!</b> Pode usar na praia e piscina à vontade. <b>Não enferruja, não marea e não descasca.</b> Basta realizar a limpeza básica (água e sabão) se a peça sujar com o suor/ácido úrico, e o brilho volta imediatamente. Feito pra <b style="color:var(--gold-dim)">uso diário</b>!
         </div></div>
       </div>
 
@@ -1194,7 +1202,7 @@
           <span class="plus">+</span>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
-          <b>O aço inox eletropolido é hipoalergênico</b> e usado inclusive em próteses médicas e aparelhos ortopédicos. A grande maioria das pessoas com pele sensível ou alergia a níquel usa sem problema nenhum. Mesmo assim, você tem <b>7 dias de garantia</b> pra devolver caso dê qualquer reação.
+          <b>O aço inox eletropolido é <span style="color:var(--gold-dim)">hipoalergênico</span></b> e usado inclusive em próteses médicas e aparelhos ortopédicos. A grande maioria das pessoas com pele sensível ou alergia a níquel usa <b>sem problema nenhum</b>. Mesmo assim, você tem <b style="color:var(--gold-dim)">7 dias de garantia</b> pra devolver caso dê qualquer reação.
         </div></div>
       </div>
 
@@ -1204,7 +1212,7 @@
           <span class="plus">+</span>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
-          Oferecemos <b>Garantia Vitalícia (eterna)</b> contra perda da cor. Suas joias são pra vida toda. Além disso, se você não gostar da peça no momento da entrega, não precisa aceitar o pacote. E se já pagou, tem 7 dias de garantia de devolução. Compra 100% segura.
+          Oferecemos <b style="color:var(--gold-dim)">Garantia Vitalícia (eterna)</b> contra perda da cor. Suas joias são pra vida toda. Além disso, se você não gostar da peça no momento da entrega, <b>não precisa aceitar o pacote</b>. E se já pagou, tem <b style="color:var(--gold-dim)">7 dias de garantia de devolução</b>. Compra <b>100% segura</b>.
         </div></div>
       </div>
 
@@ -1240,6 +1248,19 @@
 
     <h2 class="h2" data-reveal="scale"><em>Último aviso:</em> só R$ 99 com pagamento na entrega.</h2>
 
+    <!-- Comparação de preço: âncora de valor -->
+    <div data-reveal="up" style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;margin:0 auto 12px;max-width:520px">
+      <div style="text-align:center;padding:14px 20px;border:1px solid #333;border-radius:12px;opacity:.55">
+        <div style="font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--silver-dim);margin-bottom:4px">Joalheria tradicional</div>
+        <div style="font-family:var(--f-display);font-size:28px;font-weight:700;color:var(--silver-dim)"><span class="strike">R$ 800+</span></div>
+      </div>
+      <div style="font-size:24px;color:var(--silver-dim)">→</div>
+      <div style="text-align:center;padding:14px 20px;border:1px solid var(--gold);border-radius:12px;background:rgba(212,167,68,.06)">
+        <div style="font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Kit Cruz Premium</div>
+        <div style="font-family:var(--f-display);font-size:28px;font-weight:800;color:var(--gold)">R$ 99</div>
+      </div>
+    </div>
+
     <div class="big-price" data-reveal="up">
       <span class="old"><span class="strike">R$ 297</span></span>
       <span><span class="cifra">R$</span> 99<span class="cents">,00</span></span>
@@ -1265,7 +1286,7 @@
             <span class="arrow">→</span>
           </button>
         </div>
-        <small class="cep-help" id="cepHelp">Informe seu CEP para continuar</small>
+        <small class="cep-help" id="cepHelp">Digite seu CEP — sem cadastro, sem cartão agora.</small>
       </div>
     </div>
 
@@ -1283,7 +1304,7 @@
   <div class="wrap">
     <div class="foot">
       <div>
-        <div class="brand">Kit Cruz<span class="sup" style="color:var(--silver)">PREMIUM</span></div>
+        <div class="brand"><img src="assets/logo.png" alt="Kit Cruz Premium" /></div>
         <p style="margin:14px 0 0;color:#8a8c8f;font-size:13px;max-width:40ch;line-height:1.5">Acessórios em aço inox eletropolido · Pagamento na entrega · <span id="footer-city"></span></p>
         <div class="seals">
           <span class="seal">SSL · 256 bits</span>
@@ -1545,7 +1566,7 @@
           <span class="arrow">→</span>
         </button>
       </div>
-      <small class="cep-help${kind ? ' ' + kind : ''}" id="cepHelp">${escapeHtml(msg || 'Informe seu CEP para continuar')}</small>
+      <small class="cep-help${kind ? ' ' + kind : ''}" id="cepHelp">${escapeHtml(msg || 'Digite seu CEP — sem cadastro, sem cartão agora.')}</small>
     `;
     bindInput(!!kind);
   }
@@ -1566,7 +1587,7 @@
       // limpa mensagem de erro quando o usuário começa a digitar
       if(help.classList.contains('error')){
         help.className = 'cep-help';
-        help.textContent = 'Informe seu CEP para continuar';
+        help.textContent = 'Digite seu CEP — sem cadastro, sem cartão agora.';
       }
       refresh();
     });
