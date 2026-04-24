@@ -1613,7 +1613,7 @@
               <span class="cep-date-day">${escapeHtml(formatDate(d.date))}</span>
               <span class="cep-date-type">${escapeHtml(d.name || 'Padrão')}</span>
             </div>
-            <span class="cep-date-price">R$ ${formatPrice(d.price)}</span>
+            <span class="cep-date-price">Grátis</span>
           </div>
         `).join('')}
       </div>
@@ -1648,12 +1648,13 @@
 
     widget.innerHTML = `
       <div class="cep-alt">
-        <div class="cep-alt-title">Sua região é atendida por envio tradicional</div>
-        <p class="cep-alt-desc">Enviamos pelos Correios com pagamento antecipado.<br>Prazo de 5 a 10 dias úteis após a confirmação.</p>
+        <div class="cep-alt-title" style="color:var(--gold)">Pagamento na porta indisponível</div>
+        <p class="cep-alt-desc">Nossa frota local ainda não cobre este CEP para pagamento na entrega. Mas não se preocupe!</p>
+        <p class="cep-alt-desc" style="margin-top:10px;color:var(--paper)">Enviamos via Correios (pagamento antecipado) e liberamos <strong style="color:var(--gold);font-size:15px">10% DE DESCONTO</strong> para ajudar no processo.</p>
       </div>
       <a href="#" class="btn-gold cep-final-btn" id="cepTradBtn">
         <span class="dot"></span>
-        COMPRAR COM ENVIO TRADICIONAL
+        COMPRAR COM 10% OFF
         <span class="arrow">→</span>
       </a>
       <button type="button" class="cep-change" id="cepChangeBtn">← Mudar CEP</button>
