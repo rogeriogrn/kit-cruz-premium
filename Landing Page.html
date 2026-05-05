@@ -716,7 +716,7 @@
      CEP DELIVERY WIDGET (seção #comprar)
      -------------------------------------------------------- */
   .cep-widget{
-    max-width:560px;margin:0 auto;
+    max-width:620px;margin:0 auto;
     background:linear-gradient(180deg,rgba(201,169,110,.07),rgba(201,169,110,.02));
     border:1px solid rgba(201,169,110,.22);
     border-radius:20px;padding:24px 22px 20px;
@@ -798,6 +798,77 @@
     font-size:11px;letter-spacing:.12em;text-transform:uppercase;
     cursor:pointer;padding:6px 10px;transition:color .2s var(--bz);
   }
+
+  /* ---------- KIT SELECTOR ---------- */
+  .kit-select-label{
+    display:block;font-family:var(--f-mono);font-size:11px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--silver);
+    margin:14px 0 10px;text-align:center;
+  }
+  .kit-select{display:flex;gap:10px;margin:0 0 4px}
+  .kit-card{
+    flex:1;position:relative;
+    background:rgba(0,0,0,.35);border:1px solid rgba(245,244,239,.1);
+    border-radius:14px;padding:16px 12px 14px;cursor:pointer;
+    text-align:center;
+    transition:border-color .25s var(--bz),background .25s var(--bz),transform .25s var(--bz),box-shadow .25s var(--bz);
+  }
+  .kit-card:hover{border-color:rgba(201,169,110,.35);transform:translateY(-2px)}
+  .kit-card.selected{
+    border-color:var(--gold);background:rgba(201,169,110,.1);
+    box-shadow:0 0 20px -8px rgba(201,169,110,.3);
+  }
+  .kit-card-name{
+    font-family:var(--f-display);font-weight:700;font-size:18px;
+    color:var(--paper);margin:0 0 2px;letter-spacing:-.01em;line-height:1.1;
+  }
+  .kit-card-qty{
+    font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--silver-dim);margin:0 0 10px;
+  }
+  .kit-card-price{
+    font-family:var(--f-display);font-weight:800;font-size:24px;
+    color:var(--gold);letter-spacing:-.02em;line-height:1;
+  }
+  .kit-card-price .cents{font-size:.55em;color:var(--gold-dim)}
+  .kit-card-badge{
+    position:absolute;top:-10px;left:50%;transform:translateX(-50%);
+    font-family:var(--f-mono);font-size:9px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink);background:var(--gold);
+    padding:4px 10px;border-radius:999px;white-space:nowrap;font-weight:700;
+  }
+  .kit-card-old{
+    font-family:var(--f-mono);font-size:11px;color:var(--silver-dim);
+    margin:4px 0 0;
+  }
+  .kit-card-save{
+    display:inline-block;margin-top:6px;
+    font-family:var(--f-mono);font-size:9px;letter-spacing:.1em;
+    text-transform:uppercase;
+    background:rgba(107,19,32,.2);color:#d4667a;border:1px solid rgba(107,19,32,.4);
+    padding:3px 8px;border-radius:4px;font-weight:700;
+  }
+  @media(max-width:520px){
+    .kit-select{flex-direction:column}
+    .kit-card{padding:14px 16px 12px}
+    .kit-card-name{font-size:16px}
+    .kit-card-price{font-size:20px}
+  }
+
+  /* discount banner for Coinzz flow */
+  .cep-discount-banner{
+    text-align:center;padding:14px 16px;margin:0 0 14px;
+    background:linear-gradient(135deg,rgba(201,169,110,.12),rgba(201,169,110,.04));
+    border:1px solid rgba(201,169,110,.25);border-radius:14px;
+  }
+  .cep-discount-banner .title{
+    font-family:var(--f-display);font-weight:700;font-size:18px;
+    color:var(--gold);margin:0 0 6px;
+  }
+  .cep-discount-banner .desc{
+    margin:0;color:var(--paper);font-size:14px;line-height:1.5;
+  }
+  .cep-discount-banner .desc strong{color:var(--gold)}
   .cep-change:hover{color:var(--gold)}
   @media(max-width:520px){
     .cep-row{flex-direction:column}
@@ -1510,18 +1581,35 @@
   if(!widget) return;
 
   // ╭──────────────────────────────────────────────────╮
-  // │  AJUSTAR APÓS IMPLANTAÇÃO                        │
-  // │  Substitua pelos links reais dos checkouts.      │
+  // │  CONFIGURAÇÃO DE LINKS E PREÇOS                  │
   // ╰──────────────────────────────────────────────────╯
-  const COINZZ_CHECKOUT_URL      = 'COINZZ_CHECKOUT_URL';       // entrega agendada (Coinzz)
-  const TRADITIONAL_CHECKOUT_URL = 'TRADITIONAL_CHECKOUT_URL';  // envio tradicional (Correios)
+  
+  // LOGZZ (Motoboy - Área coberta)
+  const LOGZZ = {
+    kits: [
+      { id: 'unidade', name: '1 Kit', desc: 'Para você', price: 127.90, old: 297, url: 'https://entrega.logzz.com.br/pay/kit-completo---1', best: false },
+      { id: 'casal', name: '2 Kits', desc: 'Casal', price: 197.90, old: 594, url: 'https://entrega.logzz.com.br/pay/kit-completo---casal', best: true },
+      { id: 'familia', name: '3 Kits', desc: 'Família', price: 297.90, old: 891, url: 'https://entrega.logzz.com.br/pay/kit-completo---familia', best: false }
+    ]
+  };
+
+  // COINZZ (Expedição - Área não coberta, Super Desconto)
+  const COINZZ = {
+    kits: [
+      { id: 'unidade', name: '1 Kit', desc: 'Para você', price: 99.99, old: 297, url: 'https://app.coinzz.com.br/checkout/kit-completo---1-0', best: false },
+      { id: 'casal', name: '2 Kits', desc: 'Casal', price: 167.00, old: 594, url: 'https://app.coinzz.com.br/checkout/kit-completo---casal-0', best: true },
+      { id: 'familia', name: '3 Kits', desc: 'Família', price: 247.00, old: 891, url: 'https://app.coinzz.com.br/checkout/kit-completo---familia-0', best: false }
+    ]
+  };
 
   const state = {
     zip: null,
     dates: [],
     selectedDateIdx: 0,
+    selectedKitIdx: 1, // Default para Casal (índice 1)
     city: null,
-    state: null
+    state: null,
+    flow: null // 'logzz' ou 'coinzz'
   };
 
   // ---------- helpers ----------
@@ -1537,6 +1625,10 @@
     const n = Number(v);
     if(!isFinite(n)) return '—';
     return n.toFixed(2).replace('.', ',');
+  }
+  function formatPriceParts(v){
+    const parts = Number(v).toFixed(2).split('.');
+    return { int: parts[0], cents: parts[1] };
   }
   function formatDate(iso){
     if(!iso || typeof iso !== 'string') return '';
@@ -1612,21 +1704,57 @@
     `;
   }
 
-  // ---------- render: disponível (fluxo Coinzz) ----------
+  // ---------- kit selector HTML ----------
+  function getKitSelectorHTML(flowConfig){
+    return `
+      <div class="kit-select-label">Selecione a quantidade:</div>
+      <div class="kit-select">
+        ${flowConfig.kits.map((k, i) => {
+          const p = formatPriceParts(k.price);
+          return `
+            <div class="kit-card${state.selectedKitIdx === i ? ' selected' : ''}" data-idx="${i}" role="button" tabindex="0">
+              ${k.best ? '<span class="kit-card-badge">Mais vendido</span>' : ''}
+              <h4 class="kit-card-name">${k.name}</h4>
+              <p class="kit-card-qty">${k.desc}</p>
+              <div class="kit-card-price">R$ ${p.int}<span class="cents">,${p.cents}</span></div>
+              <div class="kit-card-old"><span class="strike">R$ ${k.old}</span></div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+  }
+
+  function bindKitSelector(){
+    widget.querySelectorAll('.kit-card').forEach(el => {
+      const select = () => {
+        widget.querySelectorAll('.kit-card').forEach(x => x.classList.remove('selected'));
+        el.classList.add('selected');
+        state.selectedKitIdx = parseInt(el.dataset.idx, 10) || 0;
+      };
+      el.addEventListener('click', select);
+      el.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); select(); } });
+    });
+  }
+
+  // ---------- render: Logzz (Motoboy) ----------
   function renderAvailable(data){
     state.zip              = data.zip;
     state.dates            = data.dates || [];
     state.city             = data.city;
     state.state            = data.state;
     state.selectedDateIdx  = 0;
+    state.flow             = 'logzz';
 
     const cityStr = [data.city, data.state].filter(Boolean).join(' / ') || 'sua região';
 
     widget.innerHTML = `
-      <div class="cep-success-msg">
-        <strong>✓ Entregamos em ${escapeHtml(cityStr)}!</strong><br>
-        Escolha a data que prefere receber:
+      <div class="cep-success-msg" style="text-align: left; background: rgba(0,0,0,0.3); padding: 18px; border-radius: 12px; border: 1px solid rgba(201,169,110,0.3); margin-bottom: 16px;">
+        <strong style="font-size: 18px; color: var(--gold); display: block; margin-bottom: 10px;">🏍️ Motoboy VIP liberado para ${escapeHtml(cityStr)}!</strong>
+        <p style="margin: 0 0 10px; font-size: 14.5px; line-height: 1.5; color: var(--paper);">Para sua segurança absoluta, você ativou a modalidade <strong>Pague na Entrega</strong>. O pequeno acréscimo nos valores abaixo refere-se à taxa do nosso motoboy parceiro (frete expresso).</p>
+        <p style="margin: 0; font-size: 13px; color: var(--silver-dim); line-height: 1.4;"><em>(Nos envios pagos antecipadamente essa taxa não existe, mas aqui você tem a paz de espírito de ver a joia antes de abrir a carteira).</em></p>
       </div>
+      <div style="font-family: var(--f-display); font-weight: 700; font-size: 17px; margin-bottom: 10px; text-align: center; color: var(--paper);">Agende quando quer receber:</div>
       <div class="cep-dates" id="cepDates">
         ${state.dates.map((d, i) => `
           <div class="cep-date${i === 0 ? ' selected' : ''}" data-idx="${i}" role="button" tabindex="0" aria-pressed="${i === 0}">
@@ -1638,12 +1766,23 @@
           </div>
         `).join('')}
       </div>
+      
+      ${getKitSelectorHTML(LOGZZ)}
+
       <a href="#" class="btn-gold cep-final-btn" id="cepCheckoutBtn">
         <span class="dot"></span>
         FINALIZAR PEDIDO
         <span class="arrow">→</span>
       </a>
-      <button type="button" class="cep-change" id="cepChangeBtn">← Mudar CEP</button>
+
+      <div style="margin-top: 14px; text-align: center;">
+        <span style="font-size: 13px; color: var(--silver-dim);">Prefere pagar antecipado e economizar a taxa?</span><br>
+        <button type="button" id="cepDiscountBtn" style="margin-top: 8px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--gold); border: 1px solid rgba(201,169,110,0.4); padding: 10px 16px; border-radius: 999px; background: rgba(201,169,110,0.1); cursor: pointer; text-transform: uppercase; transition: all 0.2s;">
+          Comprar com Desconto (Envio Tradicional)
+        </button>
+      </div>
+
+      <button type="button" class="cep-change" id="cepChangeBtn" style="margin-top: 20px;">← Mudar CEP</button>
     `;
 
     widget.querySelectorAll('.cep-date').forEach(el => {
@@ -1656,59 +1795,70 @@
       el.addEventListener('click', select);
       el.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); select(); } });
     });
+
+    bindKitSelector();
+
     widget.querySelector('#cepCheckoutBtn').addEventListener('click', e => {
       e.preventDefault();
-      goTo(buildCoinzzUrl());
+      goTo(buildUrl());
+    });
+    widget.querySelector('#cepDiscountBtn').addEventListener('click', e => {
+      e.preventDefault();
+      goTo(buildUrl('coinzz'));
     });
     widget.querySelector('#cepChangeBtn').addEventListener('click', () => renderInput());
   }
 
-  // ---------- render: indisponível (fluxo tradicional) ----------
+  // ---------- render: Coinzz (Expedição / Sem Motoboy) ----------
   function renderUnavailable(data){
     if(data && data.zip) state.zip = data.zip;
+    state.flow = 'coinzz';
 
     widget.innerHTML = `
-      <div class="cep-alt">
-        <div class="cep-alt-title" style="color:var(--gold)">Pagamento na porta indisponível</div>
-        <p class="cep-alt-desc">Nossa frota local ainda não cobre este CEP para pagamento na entrega. Mas não se preocupe!</p>
-        <p class="cep-alt-desc" style="margin-top:10px;color:var(--paper)">Enviamos via Correios (pagamento antecipado) e liberamos <strong style="color:var(--gold);font-size:15px">10% DE DESCONTO</strong> para ajudar no processo.</p>
+      <div class="cep-discount-banner">
+        <h3 class="title">Motoboy Indisponível</h3>
+        <p class="desc">Ainda não temos entrega por motoboy na sua região, mas por conta disso liberamos um <strong>SUPER DESCONTO EXCLUSIVO</strong> pra você receber via transportadora parceira!</p>
       </div>
-      <a href="#" class="btn-gold cep-final-btn" id="cepTradBtn">
+
+      ${getKitSelectorHTML(COINZZ)}
+
+      <a href="#" class="btn-gold cep-final-btn" id="cepCheckoutBtn">
         <span class="dot"></span>
-        COMPRAR COM 10% OFF
+        APROVEITAR DESCONTO
         <span class="arrow">→</span>
       </a>
       <button type="button" class="cep-change" id="cepChangeBtn">← Mudar CEP</button>
     `;
 
-    widget.querySelector('#cepTradBtn').addEventListener('click', e => {
+    bindKitSelector();
+
+    widget.querySelector('#cepCheckoutBtn').addEventListener('click', e => {
       e.preventDefault();
-      goTo(buildTraditionalUrl());
+      goTo(buildUrl());
     });
     widget.querySelector('#cepChangeBtn').addEventListener('click', () => renderInput());
   }
 
   // ---------- URLs ----------
-  function buildCoinzzUrl(){
-    const date = state.dates[state.selectedDateIdx];
-    const p = new URLSearchParams();
-    if(state.zip)      p.set('cep', state.zip);
-    if(date && date.code) p.set('type_code', date.code);
-    if(date && date.date) p.set('delivery_date', date.date);
-    return joinUrl(COINZZ_CHECKOUT_URL, p);
-  }
-  function buildTraditionalUrl(){
+  function buildUrl(overrideFlow){
+    const flow = overrideFlow || state.flow;
+    const config = flow === 'logzz' ? LOGZZ : COINZZ;
+    const kit = config.kits[state.selectedKitIdx];
+    const baseUrl = kit.url;
+    
     const p = new URLSearchParams();
     if(state.zip) p.set('cep', state.zip);
-    return joinUrl(TRADITIONAL_CHECKOUT_URL, p);
-  }
-  function goTo(url){
-    // Se o placeholder ainda não foi substituído, avisa no console em vez de redirecionar para uma URL quebrada.
-    if(/^(COINZZ_CHECKOUT_URL|TRADITIONAL_CHECKOUT_URL)/.test(url)){
-      console.warn('[CEP Widget] URL de checkout ainda é placeholder:', url);
-      alert('Checkout em configuração. Em instantes esta etapa estará disponível.');
-      return;
+    
+    if(flow === 'logzz' && state.dates.length > 0) {
+      const date = state.dates[state.selectedDateIdx];
+      if(date && date.code) p.set('type_code', date.code);
+      if(date && date.date) p.set('delivery_date', date.date);
     }
+    
+    return joinUrl(baseUrl, p);
+  }
+
+  function goTo(url){
     window.location.href = url;
   }
 
@@ -1723,20 +1873,20 @@
 
       if(d.ok && d.reason === 'available'){
         renderAvailable(d);
+      } else if (d.reason === 'invalid_cep' || d.reason === 'not_found') {
+        renderInput(d.message, 'error');
       } else {
-        // unavailable | not_found | fallback → fluxo tradicional
+        // unavailable | fallback → fluxo Coinzz com desconto
         renderUnavailable(d);
       }
     } catch(err){
-      // falha de rede: não trava a venda, cai no tradicional
+      // falha de rede: não trava a venda, cai no fluxo Coinzz
       console.warn('[CEP Widget] Erro ao consultar /api/delivery:', err);
       renderUnavailable({ zip });
     }
   }
 
   // ---------- inicialização ----------
-  // O HTML inicial já está pré-renderizado (bom pro 1º paint e pra animação data-reveal).
-  // Só precisamos prender os eventos desse primeiro render.
   bindInput(false);
 })();
 </script>
