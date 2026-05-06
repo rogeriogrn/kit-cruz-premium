@@ -5,6 +5,24 @@ Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/).
 
 ---
 
+## [2.2.0] — 2026-05-05
+
+### ⚡ Otimização de Imagens e Performance
+
+**Motivação:** Reduzir o peso da página para acelerar o tempo de carregamento e melhorar conversão/SEO, mantendo a mais alta qualidade visual nas imagens dos produtos.
+
+### Added — Orquestração e Assets
+- `optimize-images.mjs` — Adicionado script Node.js (Sharp) na raiz do projeto para gerar versões `.avif` e `.webp` automaticamente.
+- `package.json` — Adicionado para gerenciar as dependências do script (`sharp`) e fornecer o comando `npm run optimize`.
+- Diretório `assets/` populado com imagens otimizadas em três formatos (AVIF para navegadores modernos, WebP para padrão atual, PNG como fallback).
+- Total de peso das imagens reduzido em **97.4%** (de 21.3 MB para ~577 KB usando AVIF).
+
+### Changed — `Landing Page.html` & `index.html`
+- Substituídas todas as tags `<img>` por blocos `<picture>` para permitir o fallback progressivo: `AVIF` → `WebP` → `PNG`.
+- Adicionado `loading="lazy"` nas imagens abaixo da dobra (below-the-fold) para adiar carregamento e economizar recursos.
+- Background via CSS em `.cta-final` modificado para usar `image-set()` com fallback para os formatos modernos.
+- Definidas larguras (`width`) e alturas (`height`) explícitas nas tags `<img>` em todas as mídias para zerar o Cumulative Layout Shift (CLS).
+
 ## [2.1.0] — 2026-04-22
 
 ### ✨ Verificação de Entrega por CEP + Bifurcação de Checkout

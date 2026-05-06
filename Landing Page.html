@@ -651,7 +651,12 @@
 
   /* ---------- CTA FINAL ---------- */
   .cta-final{
-    background:url('assets/bg-cta.png') center/cover no-repeat;
+    background:url('assets/bg-cta.webp') center/cover no-repeat;
+    background:image-set(
+      url('assets/bg-cta.avif') type('image/avif'),
+      url('assets/bg-cta.webp') type('image/webp'),
+      url('assets/bg-cta.png') type('image/png')
+    ) center/cover no-repeat;
     color:var(--paper);
     padding:80px 0 100px;
     position:relative;overflow:hidden;
@@ -921,7 +926,7 @@
 </div>
 
 <header class="wrap nav">
-  <div class="brand"><img src="assets/logo.png" alt="Kit Cruz Premium" /></div>
+  <div class="brand"><picture><source srcset="assets/logo.avif" type="image/avif"><source srcset="assets/logo.webp" type="image/webp"><img src="assets/logo.png" alt="Kit Cruz Premium" width="400" height="400" /></picture></div>
   <a href="#comprar" class="nav-cta">Pedir por R$ 99 <span aria-hidden>→</span></a>
 </header>
 
@@ -972,7 +977,7 @@
 
       <div class="hero-media" data-hero="9">
         <span class="tag"><span class="dot"></span>PAGUE SÓ QUANDO CHEGAR</span>
-        <img src="assets/hero-kit-completo.png" alt="Kit completo em aço inox eletropolido" id="heroImg" />
+        <picture><source srcset="assets/hero-kit-completo.avif" type="image/avif"><source srcset="assets/hero-kit-completo.webp" type="image/webp"><img src="assets/hero-kit-completo.png" alt="Kit completo em aço inox eletropolido" id="heroImg" width="1200" height="1600" /></picture>
         <span class="corner">AÇO INOX PREMIUM</span>
         <span class="frame"></span>
       </div>
@@ -1044,7 +1049,7 @@
       <article class="piece">
         <div class="piece-img">
           <span class="piece-num">01</span>
-          <img src="assets/peca-01-cordao.png" alt="Cordão em aço inox eletropolido" />
+          <picture><source srcset="assets/peca-01-cordao.avif" type="image/avif"><source srcset="assets/peca-01-cordao.webp" type="image/webp"><img src="assets/peca-01-cordao.png" alt="Cordão em aço inox eletropolido" width="800" height="800" loading="lazy" /></picture>
         </div>
         <div class="piece-meta">
           <span class="piece-tag">Peça 01 · CORDÃO</span>
@@ -1057,7 +1062,7 @@
       <article class="piece">
         <div class="piece-img">
           <span class="piece-num">02</span>
-          <img src="assets/peca-02-pingente.png" alt="Pingente cruz cravejado em aço inox" />
+          <picture><source srcset="assets/peca-02-pingente.avif" type="image/avif"><source srcset="assets/peca-02-pingente.webp" type="image/webp"><img src="assets/peca-02-pingente.png" alt="Pingente cruz cravejado em aço inox" width="800" height="800" loading="lazy" /></picture>
         </div>
         <div class="piece-meta">
           <span class="piece-tag">Peça 02 · PINGENTE</span>
@@ -1070,7 +1075,7 @@
       <article class="piece">
         <div class="piece-img">
           <span class="piece-num">03</span>
-          <img src="assets/peca-03-pulseira.png" alt="Pulseira em aço inox eletropolido" />
+          <picture><source srcset="assets/peca-03-pulseira.avif" type="image/avif"><source srcset="assets/peca-03-pulseira.webp" type="image/webp"><img src="assets/peca-03-pulseira.png" alt="Pulseira em aço inox eletropolido" width="800" height="800" loading="lazy" /></picture>
         </div>
         <div class="piece-meta">
           <span class="piece-tag">Peça 03 · PULSEIRA</span>
@@ -1169,7 +1174,7 @@
     <div class="rev-grid" data-reveal="stagger">
       <article class="card">
         <div class="card-photo">
-          <img src="assets/review-01.png" alt="Diego usando o Kit Cruz Premium" />
+          <picture><source srcset="assets/review-01.avif" type="image/avif"><source srcset="assets/review-01.webp" type="image/webp"><img src="assets/review-01.png" alt="Diego usando o Kit Cruz Premium" width="800" height="1067" loading="lazy" /></picture>
           <span class="card-badge">Compra verificada</span>
         </div>
         <div class="card-body">
@@ -1187,7 +1192,7 @@
 
       <article class="card">
         <div class="card-photo">
-          <img src="assets/review-02.png" alt="Rafael usando o Kit Cruz Premium" />
+          <picture><source srcset="assets/review-02.avif" type="image/avif"><source srcset="assets/review-02.webp" type="image/webp"><img src="assets/review-02.png" alt="Rafael usando o Kit Cruz Premium" width="800" height="1067" loading="lazy" /></picture>
           <span class="card-badge">Compra verificada</span>
         </div>
         <div class="card-body">
@@ -1205,7 +1210,7 @@
 
       <article class="card">
         <div class="card-photo">
-          <img src="assets/review-03.png" alt="Mônica usando o Kit Cruz Premium" />
+          <picture><source srcset="assets/review-03.avif" type="image/avif"><source srcset="assets/review-03.webp" type="image/webp"><img src="assets/review-03.png" alt="Mônica usando o Kit Cruz Premium" width="800" height="1067" loading="lazy" /></picture>
           <span class="card-badge">Compra verificada</span>
         </div>
         <div class="card-body">
@@ -1236,9 +1241,9 @@
     </div>
 
     <div class="gal-grid" data-reveal="stagger">
-      <div class="gal g1"><img src="assets/macro-cordao.png" alt="Macro do cordão" /><span class="cap">01 · MACRO CORDÃO</span></div>
-      <div class="gal g2"><img src="assets/macro-pingente.png" alt="Macro da cruz" /><span class="cap">02 · MACRO CRUZ</span></div>
-      <div class="gal g3"><img src="assets/macro-pulseira.png" alt="Macro da pulseira" /><span class="cap">03 · MACRO PULSEIRA</span></div>
+      <div class="gal g1"><picture><source srcset="assets/macro-cordao.avif" type="image/avif"><source srcset="assets/macro-cordao.webp" type="image/webp"><img src="assets/macro-cordao.png" alt="Macro do cordão" width="1200" height="1600" loading="lazy" /></picture><span class="cap">01 · MACRO CORDÃO</span></div>
+      <div class="gal g2"><picture><source srcset="assets/macro-pingente.avif" type="image/avif"><source srcset="assets/macro-pingente.webp" type="image/webp"><img src="assets/macro-pingente.png" alt="Macro da cruz" width="1200" height="1200" loading="lazy" /></picture><span class="cap">02 · MACRO CRUZ</span></div>
+      <div class="gal g3"><picture><source srcset="assets/macro-pulseira.avif" type="image/avif"><source srcset="assets/macro-pulseira.webp" type="image/webp"><img src="assets/macro-pulseira.png" alt="Macro da pulseira" width="1200" height="675" loading="lazy" /></picture><span class="cap">03 · MACRO PULSEIRA</span></div>
     </div>
   </div>
 </section>
@@ -1403,7 +1408,7 @@
   <div class="wrap">
     <div class="foot">
       <div>
-        <div class="brand"><img src="assets/logo.png" alt="Kit Cruz Premium" /></div>
+        <div class="brand"><picture><source srcset="assets/logo.avif" type="image/avif"><source srcset="assets/logo.webp" type="image/webp"><img src="assets/logo.png" alt="Kit Cruz Premium" width="400" height="400" loading="lazy" /></picture></div>
         <p style="margin:14px 0 0;color:#8a8c8f;font-size:13px;max-width:40ch;line-height:1.5">Acessórios em aço inox eletropolido · Pagamento na entrega · <span id="footer-city"></span></p>
         <div class="seals">
           <span class="seal">SSL · 256 bits</span>

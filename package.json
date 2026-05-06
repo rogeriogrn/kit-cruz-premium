@@ -1,0 +1,13 @@
+{
+  "name": "pagina-joias",
+  "version": "1.0.0",
+  "description": "Landing Page Joias com Otimização de Performance",
+  "type": "module",
+  "scripts": {
+    "optimize": "node optimize-images.mjs",
+    "dev": "npx serve ."
+  },
+  "dependencies": {
+    "sharp": "^0.33.2"
+  }
+}
