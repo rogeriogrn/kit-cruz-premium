@@ -6,7 +6,7 @@
 // retorna erro ou demora demais. O frontend SEMPRE recebe JSON com a chave
 // `reason` — nunca HTTP 5xx — para que a experiência do cliente não trave.
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   res.setHeader("Access-Control-Allow-Origin", "*");
   // Cache curto em borda: mesma região costuma repetir consultas próximas
@@ -113,4 +113,4 @@ module.exports = async (req, res) => {
       message: "Não foi possível verificar agora — usando envio tradicional.",
     });
   }
-};
+}
